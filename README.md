@@ -1,5 +1,5 @@
 # learning_moveit_jaco
-Moveit! integration with Jaco 
+Moveit! integration with Kinova Jaco-2 arm. 
 
 You should complete the MoveIt! Setup Assistant tutorial and have a MoveIt! configuration for the JACO that you can use. 
 Here is a link to configure Moveit! for JACO.
