@@ -218,7 +218,7 @@ Visualization Manager:
         Show Robot Collision: false
         Show Robot Visual: true
         Show Trail: false
-        State Display Time: 0.1 s
+        State Display Time: 0.05 s
         Trajectory Topic: /move_group/display_planned_path
       Planning Metrics:
         Payload: 1
@@ -407,22 +407,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.29084
+      Distance: 3.14219
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.416674
-        Y: -0.246198
-        Z: 0.312759
+        X: 0.340359
+        Y: -0.115824
+        Z: -0.120048
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.480203
+      Pitch: 0.670203
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.1804
+      Yaw: 1.2354
     Saved: ~
 Window Geometry:
   Displays:
@@ -442,5 +442,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1270
-  X: 412
-  Y: 65
+  X: 352
+  Y: 14
