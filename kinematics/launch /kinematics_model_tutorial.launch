@@ -1,0 +1,48 @@
+<launch>
+
+  <!-- <arg name="db" default="false" />
+  <arg name="debug" default="false" />
+  <arg name="robot_base" default="robot_root"/> -->
+
+
+  <include file="$(find jaco_moveit_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <!-- static transform -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 robot_root base_footprint 100" /> -->
+
+  <!--
+       publish JointState messages for a robot
+  -->
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="/use_gui" value="false"/>
+    <rosparam param="/source_list">[/move_group/fake_controller_joint_states]</rosparam>
+  </node> -->
+
+  <!--
+       publishes state of robot to tf
+  -->
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" /> -->
+
+  <!--
+      Q: What does this do?
+  -->
+  <!-- <include file="$(find jaco_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="fake_execution" value="true"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include> -->
+
+  <node name="kinematics_model_tutorial"
+        pkg="kinematics"
+        type="kinematics_model_tutorial"
+        respawn="false" output="screen">
+    <rosparam command="load"
+              file="$(find jaco_moveit_config)/config/kinematics.yaml"/>
+  </node>
+
+   <!-- <node name="$(anon rviz)" pkg="rviz" type="rviz" args="-d $(find planning)/launch/launch.rviz"/> -->
+
+</launch>
