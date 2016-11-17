@@ -44,7 +44,7 @@ public:
 
     // Joint limits
     // Q: how would we query what the set bounds are?
-    joint_values[0] = 1.57;
+    joint_values[0] = 2;
     kinematic_state->setJointGroupPositions(joint_model_group, joint_values);
 
     ROS_INFO_STREAM_NAMED("km_tester","Current state is " << kinematic_state->satisfiesBounds());
@@ -73,6 +73,13 @@ public:
     {
       ROS_INFO_STREAM_NAMED("km_tester","Did not find IK solution");
     }
+
+    Eigen::Vector3d reference_point_position(0.0, 0.0, 0.0);
+    Eigen::MatrixXd jacobian;
+    kinematic_state->getJacobian(joint_model_group,
+                                 kinematic_state->getLinkModel(joint_model_group->getLinkModelNames().back()),
+                                 reference_point_position, jacobian);
+    ROS_INFO_STREAM("Jacobian: " << jacobian);
 
   }
 
