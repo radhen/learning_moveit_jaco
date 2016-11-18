@@ -132,17 +132,13 @@ ${catkin_INCLUDE_DIRS}
 # add_dependencies(planning ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(move_group_tutorial
-src/move_group_tutorial.cpp)
+add_executable(move_group_tutorial src/move_group_tutorial.cpp)
+target_link_libraries(move_group_tutorial ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+install(TARGETS move_group_tutorial DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-## Add cmake target dependencies of the executable
-## same as for the library above
-# add_dependencies(planning_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Specify libraries to link a library or executable target against
-target_link_libraries(move_group_tutorial
-  ${catkin_LIBRARIES}
-)
+add_executable(motion_planning_api_tutorial src/motion_planning_api_tutorial.cpp)
+target_link_libraries(motion_planning_api_tutorial ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+install(TARGETS motion_planning_api_tutorial DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 #############
 ## Install ##

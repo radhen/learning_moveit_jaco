@@ -30,7 +30,7 @@ public:
   {
 
     ROS_INFO_STREAM_NAMED("constructor","starting moveGroupInterfaceTester...");
-    moveit::planning_interface::MoveGroup arm("arm");
+    moveit::planning_interface::MoveGroup arm("Arm");
     Arm = &arm;
 
     ROS_INFO_STREAM_NAMED("constructor","Reference frame: " << Arm->getPlanningFrame().c_str());
