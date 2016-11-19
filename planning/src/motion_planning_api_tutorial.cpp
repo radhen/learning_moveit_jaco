@@ -4,7 +4,7 @@
 // MoveIt!
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/planning_interface/planning_interface.h>
-#include <moveit/ompl_interface/ompl_interface.h>
+// #include <moveit/ompl_interface/ompl_interface.h>
 #include <moveit/planning_scene/planning_scene.h>
 #include <moveit/kinematic_constraints/utils.h>
 #include <moveit_msgs/DisplayTrajectory.h>
@@ -34,8 +34,9 @@ int main(int argc, char** argv)
   // :moveit_core:`RobotModel` for us to use.
   //
   // .. _RobotModelLoader: http://docs.ros.org/indigo/api/moveit_ros_planning/html/classrobot__model__loader_1_1RobotModelLoader.html
-  robot_model_loader::RobotModelLoader robot_model_loader("jaco_moveit_config");
+  robot_model_loader::RobotModelLoader robot_model_loader("robot_description");
   robot_model::RobotModelPtr robot_model = robot_model_loader.getModel();
+  ROS_INFO_STREAM_NAMED("km_tester","Model frame = " << robot_model->getModelFrame().c_str());
 
   // Using the :moveit_core:`RobotModel`, we can construct a
   // :planning_scene:`PlanningScene` that maintains the state of
@@ -90,10 +91,10 @@ int main(int argc, char** argv)
   planning_interface::MotionPlanRequest req;
   planning_interface::MotionPlanResponse res;
   geometry_msgs::PoseStamped pose;
-  pose.header.frame_id = "jaco_6_hand_limb";
-  pose.pose.position.x = 0.75;
-  pose.pose.position.y = 0.0;
-  pose.pose.position.z = 0.0;
+  pose.header.frame_id = "robot_root";
+  pose.pose.position.x = -0.25;
+  pose.pose.position.y = -0.13;
+  pose.pose.position.z = 0.20;
   pose.pose.orientation.w = 1.0;
 
   // A tolerance of 0.01 m is specified in position
@@ -107,7 +108,7 @@ int main(int argc, char** argv)
   // package.
   //
   // .. _kinematic_constraints: http://docs.ros.org/indigo/api/moveit_core/html/namespacekinematic__constraints.html#a88becba14be9ced36fefc7980271e132
-  req.group_name = "arm";
+  req.group_name = "Arm";
   moveit_msgs::Constraints pose_goal =
       kinematic_constraints::constructGoalConstraints("jaco_6_hand_limb", pose, tolerance_pose, tolerance_angle);
   req.goal_constraints.push_back(pose_goal);
@@ -146,7 +147,7 @@ int main(int argc, char** argv)
   /* First, set the state in the planning scene to the final state of the last plan */
   robot_state::RobotState& robot_state = planning_scene->getCurrentStateNonConst();
   planning_scene->setCurrentState(response.trajectory_start);
-  const robot_state::JointModelGroup* joint_model_group = robot_state.getJointModelGroup("arm");
+  const robot_state::JointModelGroup* joint_model_group = robot_state.getJointModelGroup("Arm");
   robot_state.setJointGroupPositions(joint_model_group, response.trajectory.joint_trajectory.points.back().positions);
 
   // Now, setup a joint space goal
@@ -197,7 +198,7 @@ int main(int argc, char** argv)
   // ^^^^^^^^^^^^^^^^^^^^^^^
   // Let's add a new pose goal again. This time we will also add a path constraint to the motion.
   /* Let's create a new pose goal */
-  pose.pose.position.x = 0.65;
+  pose.pose.position.x = 0.25;
   pose.pose.position.y = -0.2;
   pose.pose.position.z = -0.1;
   moveit_msgs::Constraints pose_goal_2 =
@@ -211,7 +212,7 @@ int main(int argc, char** argv)
   /* But, let's impose a path constraint on the motion.
      Here, we are asking for the end-effector to stay level*/
   geometry_msgs::QuaternionStamped quaternion;
-  quaternion.header.frame_id = "jaco_6_hand_limb";
+  quaternion.header.frame_id = "robot_root";
   quaternion.quaternion.w = 1.0;
   req.path_constraints = kinematic_constraints::constructGoalConstraints("jaco_6_hand_limb", quaternion);
 

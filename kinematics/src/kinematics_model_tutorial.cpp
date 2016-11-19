@@ -29,7 +29,7 @@ public:
     // set robot model to default values
     robot_state::RobotStatePtr kinematic_state(new robot_state::RobotState(kinematic_model));
     kinematic_state->setToDefaultValues();
-    const robot_state::JointModelGroup* joint_model_group = kinematic_model->getJointModelGroup("arm");
+    const robot_state::JointModelGroup* joint_model_group = kinematic_model->getJointModelGroup("Arm");
 
     // return a reference to the member variable?
     const std::vector<std::string> &joint_names = joint_model_group->getJointModelNames();
