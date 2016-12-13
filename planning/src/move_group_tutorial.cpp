@@ -40,7 +40,7 @@ public:
     geometry_msgs::Pose target_pose;
     target_pose.orientation.w = 1;
     target_pose.position.x = 0.35;
-    target_pose.position.y = 0.2;
+    target_pose.position.y = -0.2;
     target_pose.position.z = 0.5;
     Arm->setPoseTarget(target_pose);
     visual_tools_->publishAxisLabeled(target_pose, "target_pose1", rviz_visual_tools::SMALL);
@@ -49,6 +49,7 @@ public:
     //Compute a motion plan that takes the group declared in the constructor from the current state to the specified target.
     //No execution is performed. The resulting plan is stored in plan.
     bool success = Arm->plan(new_plan);
+
     ROS_INFO_STREAM_NAMED("constructor","success = " << success);
     ROS_INFO_STREAM_NAMED("constructor","Visualizing joint space plan for 5 seconds...");
     ros::Duration(5.0).sleep();
@@ -73,9 +74,9 @@ public:
     robot_state::RobotState start_state(*Arm->getCurrentState());
     geometry_msgs::Pose start_pose2;
     start_pose2.orientation.w = 1.0;
-    start_pose2.position.x = 0.4;
-    start_pose2.position.y = 0.2;
-    start_pose2.position.z = 0.2;
+    start_pose2.position.x = 0.2;
+    start_pose2.position.y = 0.4;
+    start_pose2.position.z = 0.7;
 
     const robot_state::JointModelGroup *joint_model_group = start_state.getJointModelGroup(Arm->getName());
     start_state.setFromIK(joint_model_group, start_pose2);
@@ -92,35 +93,35 @@ public:
 
     /*==*==*==*==*== CARTESIAN PATH, FOLLOW A TRAJECTORY (waypoints)==*==*==*==*/
 
-    // std::vector<geometry_msgs::Pose> waypoints;
-    //
-    // // set start pose so orientation constraint is satisfied.
-    // robot_state::RobotState start_state(*Arm->getCurrentState());
-    // geometry_msgs::Pose start_pose2;
-    // start_pose2.orientation.w = 1.0;
-    // start_pose2.position.x = 0.2;
-    // start_pose2.position.y = 0.2;
-    // start_pose2.position.z = 0.35;
-    //
-    // geometry_msgs::Pose target_pose3 = start_pose2;
-    // target_pose3.position.x -= 0.1;
-    // target_pose3.position.z += 0.1;
-    // waypoints.push_back(target_pose3);
-    //
-    // target_pose3.position.y -= 0.1;
-    // waypoints.push_back(target_pose3);
-    //
-    // target_pose3.position.x -= 0.1;
-    // target_pose3.position.y += 0.1;
-    // target_pose3.position.z += 0.1;
-    // waypoints.push_back(target_pose3);
-    //
-    // moveit_msgs::RobotTrajectory trajectory;
-    // // Q: what exactly is fraction?
-    // double fraction = Arm->computeCartesianPath(waypoints, 0.05, 0.01, trajectory);
-    //
-    // ROS_INFO("Visualizing plan 4 (cartesian path) (%.2f%% acheived)", fraction * 100.0);
-    // ros::Duration(15.0).sleep();
+    std::vector<geometry_msgs::Pose> waypoints;
+
+    // set start pose so orientation constraint is satisfied.
+    robot_state::RobotState start_state(*Arm->getCurrentState());
+    geometry_msgs::Pose start_pose2;
+    start_pose2.orientation.w = 1.0;
+    start_pose2.position.x = 0.2;
+    start_pose2.position.y = 0.2;
+    start_pose2.position.z = 0.35;
+
+    geometry_msgs::Pose target_pose3 = start_pose2;
+    target_pose3.position.x -= 0.1;
+    target_pose3.position.z += 0.1;
+    waypoints.push_back(target_pose3);
+
+    target_pose3.position.y -= 0.1;
+    waypoints.push_back(target_pose3);
+
+    target_pose3.position.x -= 0.1;
+    target_pose3.position.y += 0.1;
+    target_pose3.position.z += 0.1;
+    waypoints.push_back(target_pose3);
+
+    moveit_msgs::RobotTrajectory trajectory;
+    // Q: what exactly is fraction?
+    double fraction = Arm->computeCartesianPath(waypoints, 0.05, 0.01, trajectory);
+
+    ROS_INFO("Visualizing plan 4 (cartesian path) (%.2f%% acheived)", fraction * 100.0);
+    ros::Duration(15.0).sleep();
 
 
     /*==*==*==*==*== Adding/Removing Objects and Attaching/Detaching Objects==*==*==*==*/
@@ -137,7 +138,7 @@ public:
     primitive.dimensions.resize(3);
     primitive.dimensions[0] = 0.4;
     primitive.dimensions[1] = 0.1;
-    primitive.dimensions[2] = 0.4;
+    primitive.dimensions[2] = 0.2;
 
     /* A pose for the box (specified relative to frame_id) */
     geometry_msgs::Pose box_pose;

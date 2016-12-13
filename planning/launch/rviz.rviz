@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Status1
         - /MarkerArray1
         - /MotionPlanning1
         - /MotionPlanning1/Scene Geometry1
@@ -58,9 +59,7 @@ Visualization Manager:
       Marker Topic: /rviz_visual_tools
       Name: MarkerArray
       Namespaces:
-        Text: true
-        target_pose1: true
-        target_pose2: true
+        {}
       Queue Size: 100
       Value: true
     - Class: moveit_rviz_plugin/MotionPlanning
@@ -233,7 +232,7 @@ Visualization Manager:
         Goal State Color: 250; 128; 0
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
-        Planning Group: All
+        Planning Group: Arm
         Query Goal State: false
         Query Start State: false
         Show Workspace: false
@@ -386,7 +385,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: robot_root
+    Fixed Frame: j2n6a300_link_base
     Frame Rate: 30
   Name: root
   Tools:
@@ -407,7 +406,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.14219
+      Distance: 6.20213
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -419,10 +418,10 @@ Visualization Manager:
         Z: -0.120048
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.670203
+      Pitch: 0.7452
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.2354
+      Yaw: 1.0254
     Saved: ~
 Window Geometry:
   Displays:
@@ -442,5 +441,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1270
-  X: 352
+  X: 312
   Y: 14

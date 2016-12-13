@@ -3,7 +3,7 @@
   <arg name="db" default="false" />
   <arg name="debug" default="false" />
 
-  <arg name="robot_base" default="robot_root"/>
+  <arg name="robot_base" default="j2n6a300_link_base"/>
 
   <!--
       Q: What does this do?
@@ -14,7 +14,7 @@
   </include>
 
   <!-- static transform -->
-  <!-- <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" /> -->
+  <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined j2n6a300_link_base 100" />
 
   <!--
        publish JointState messages for a robot
@@ -39,6 +39,7 @@
     <arg name="debug" value="$(arg debug)"/>
   </include>
 
+
   <!--
       Use my own rviz file so I can learn how to configure it...
   -->
@@ -53,5 +54,8 @@
        leave the warehouse out for now...
   -->
   <!-- <include file="$(find pr2_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)"/> -->
+
+  <!-- move_group_tutorial NODE -->
+  <!-- <node name="move_group_interface_tester" type="move_group_interface_tester" pkg="planning" output="screen"/> -->
 
 </launch>
